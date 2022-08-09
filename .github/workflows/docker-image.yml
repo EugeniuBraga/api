@@ -35,7 +35,7 @@ jobs:
       - name: Docker Push
         run: docker push eugeniubraga/api:latest
       - name: setup gcloud CLI
-        uses: google-github-actions/setup-gcloud@main
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           # this is the json key of the service account created on the project
@@ -46,7 +46,7 @@ jobs:
           gcloud config set compute/region us-central1
           gcloud config set compute/zone us-central1-c
           gcloud container clusters get-credentials telega-cluster
-          envsubst < deploy.yml
-          envsubst < deploy.yml | kubectl apply -f -
+          envsubst < manifest.yaml
+          envsubst < manifest.yaml | kubectl apply -f -
           kubectl rollout status -w deployment/api:latest
           kubectl get all
