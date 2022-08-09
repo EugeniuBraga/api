@@ -34,6 +34,11 @@ jobs:
 
       - name: Docker Push
         run: docker push eugeniubraga/api:latest
-
-      - name: Install kubectl
-        run: sudo apt-get install kubectl 
+      - name: setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          # this is the json key of the service account created on the project
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}  
+          export_default_credentials: true
+      
