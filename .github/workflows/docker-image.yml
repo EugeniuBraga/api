@@ -35,10 +35,18 @@ jobs:
       - name: Docker Push
         run: docker push eugeniubraga/api:latest
       - name: setup gcloud CLI
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@main
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           # this is the json key of the service account created on the project
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}  
           export_default_credentials: true
-      
+      - name: Deploy
+        run: |
+          gcloud config set compute/region us-central1
+          gcloud config set compute/zone us-central1-c
+          gcloud container clusters get-credentials node-demo-k8s
+          envsubst < deploy.yml
+          envsubst < deploy.yml | kubectl apply -f -
+          kubectl rollout status -w deployment/nodejs-demo-app
+          kubectl get all
