@@ -27,15 +27,13 @@ jobs:
 
     # Runs a single command using the runners shell
       - name: Build Docker Image
-        run: docker build -t eugeniubraga/telegram-bot:latest .
+        run: docker build -t eugeniubraga/api:latest .
 
       - name: Docker Login
         run: echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u eugeniubraga --password-stdin
 
       - name: Docker Push
-        run: docker push eugeniubraga/telegram-bot:latest
+        run: docker push eugeniubraga/api:latest
 
-      - name: Deploy Docker Image
-        uses: appleboy/ssh-action@master
       - name: Install kubectl
         run: sudo apt-get install kubectl 
