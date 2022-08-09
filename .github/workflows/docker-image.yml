@@ -45,8 +45,8 @@ jobs:
         run: |
           gcloud config set compute/region us-central1
           gcloud config set compute/zone us-central1-c
-          gcloud container clusters get-credentials node-demo-k8s
+          gcloud container clusters get-credentials telega-cluster
           envsubst < deploy.yml
           envsubst < deploy.yml | kubectl apply -f -
-          kubectl rollout status -w deployment/nodejs-demo-app
+          kubectl rollout status -w deployment/api:latest
           kubectl get all
