@@ -37,7 +37,7 @@ jobs:
       - name: setup gcloud CLI
         uses: google-github-actions/setup-gcloud@master
         with:
-          project_id: ${{ secrets.GCP_PROJECT }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           # this is the json key of the service account created on the project
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}  
           export_default_credentials: true
