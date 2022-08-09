@@ -55,14 +55,5 @@ jobs:
 
       - name: Deploy Docker Image
         uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.SA_EMAIL }}
-          key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          port: ${{ secrets.PORT }}
-          script: |
-            sudo docker stop telegram-bot 2> /dev/null
-            sudo docker system prune -a -f
-            sudo docker image prune -a -f
-            echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u eugeniubraga --password-stdin
-            sudo docker run -d --name=api:latest eugeniubraga/api:latest
+      -name: Install kubectl
+        run: apt-get install kubectl
