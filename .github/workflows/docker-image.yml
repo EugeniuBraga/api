@@ -27,13 +27,13 @@ jobs:
 
     # Runs a single command using the runners shell
       - name: Build Docker Image
-        run: docker build -t eugeniubraga/api:latest .
+        run: docker build -t eugeniubraga/api .
 
       - name: Docker Login
         run: echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u eugeniubraga --password-stdin
 
       - name: Docker Push
-        run: docker push eugeniubraga/api:latest
+        run: docker push eugeniubraga/api
       - name: setup gcloud CLI
         uses: google-github-actions/setup-gcloud@v0
         with:
@@ -48,5 +48,5 @@ jobs:
           gcloud container clusters get-credentials telega-cluster
           envsubst < manifest.yaml
           envsubst < manifest.yaml | kubectl apply -f -
-          kubectl rollout status -w deployment/api:latest
+          kubectl rollout status -w deployment/api
           kubectl get all
