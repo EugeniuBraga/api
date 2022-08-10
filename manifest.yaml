@@ -15,7 +15,7 @@ spec:
         app: api
     spec:
       containers:
-      - name: api:latest
+      - name: api
         image: gcr.io/directed-fabric-357018/api:latest
         ports:
         - containerPort: 5000
