@@ -34,7 +34,7 @@ pipeline {
                                 manifestPattern: "manifest.yaml",
                                 verifyDeployment: true
                                 ])
-            }
+                }
             }
         }
 }
